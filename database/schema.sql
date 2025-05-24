@@ -46,3 +46,6 @@ INSERT INTO user (username, pass, firstname, lastname, email) VALUES
 
 INSERT INTO user (username, pass, firstname, lastname, email) VALUES 
 ('mpatsianotaki', 'password2', 'Maria', 'Patsianotaki', 'm.patsianotaki@outlook.com');
+
+INSERT INTO user (username, pass, firstname, lastname, email) VALUES 
+('littlechef', 'password2', 'Maria', 'Patsianotaki', 'littlechef@outlook.com');
