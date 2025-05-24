@@ -39,3 +39,10 @@ CREATE TABLE comments (
   user_id INT NOT NULL,
   created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+
+INSERT INTO user (username, pass, firstname, lastname, email) VALUES 
+('ckostanikos', 'password1', 'Christos', 'Kostanikos', 'c.kostanikos@outlook.com');
+
+INSERT INTO user (username, pass, firstname, lastname, email) VALUES 
+('mpatsianotaki', 'password2', 'Maria', 'Patsianotaki', 'm.patsianotaki@outlook.com');
