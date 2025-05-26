@@ -1,15 +1,34 @@
-function signIn() {
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value.trim();
+document.addEventListener("DOMContentLoaded", function () {
+  document
+    .getElementById("loginForm")
+    .addEventListener("submit", async function (e) {
+      e.preventDefault(); // Prevent form from reloading the page
 
-  if (!email || !password) {
-    alert("Please enter both email and password.");
-    return;
-  }
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
 
-  if (email === "chef@example.com" && password === "secret") {
-    alert("Welcome back, Chef!");
-  } else {
-    alert("Invalid credentials. Please try again.");
-  }
-}
+      if (!email || !password) {
+        alert("Please enter both email and password.");
+        return;
+      }
+      console.log(email, password);
+      try {
+        const res = await fetch("http://localhost:4005/api/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, pass: password }),
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          alert(`Welcome back, ${data.username}!`);
+        } else {
+          alert(data.error || "Login failed.");
+        }
+      } catch (err) {
+        console.error("Login error:", err);
+        alert("Something went wrong.");
+      }
+    });
+});

@@ -40,6 +40,9 @@ CREATE TABLE comments (
   created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+ALTER TABLE recipes
+ADD COLUMN image MEDIUMBLOB;
+
 
 INSERT INTO user (username, pass, firstname, lastname, email) VALUES 
 ('ckostanikos', 'password1', 'Christos', 'Kostanikos', 'c.kostanikos@outlook.com');
