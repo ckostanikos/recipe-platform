@@ -55,6 +55,113 @@ input[type="username"] {
   text-decoration: underline;
 }
 
+.profile-wrapper {
+  max-width: 1000px;
+  margin: 2rem;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px black;
+}
+/* This defines a flex container; inline or block depending on the given value. It enables a flex context for all its direct children.*/
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.settings-text {
+  font-weight: bold;
+}
+
+.btn-black {
+  background-color: #000;
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-black:hover {
+  opacity: 0.85;
+}
+
+.profile-content {
+  display: flex;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+
+.profile-left {
+  flex: 1;
+  text-align: center;
+}
+
+.profile-img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  margin-bottom: 1rem;
+}
+
+#profile_pic {
+  display: block;
+  margin: 0.5rem auto;
+}
+
+.profile {
+  flex: 1;
+}
+
+.profile input {
+  display: block;
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.SaveButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+}
+
+.SaveButton:hover {
+  background-color: #0056b3;
+}
+
+.DeleteButton {
+  background-color: #dc3545;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+}
+
+.DeleteButton:hover {
+  background-color: #b02a37;
+}
+
+.profile-icon {
+  font-size: 120px;
+  color: #ccc;
+  display: block;
+  margin: 0 auto 1rem;
+}
+
 footer {
   position: absolute;
   bottom: 1rem;
