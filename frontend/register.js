@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const firstname = document.getElementById("firstname").value.trim();
       const lastname = document.getElementById("lastname").value.trim();
       const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value.trim();
+      const password = document.getElementById("pass").value.trim();
       const fileInput = document.getElementById("profile_pic");
 
       if (!username || !firstname || !lastname || !email || !password) {
