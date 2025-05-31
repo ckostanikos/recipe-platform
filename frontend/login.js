@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
       console.log(email, password);
       try {
-        const res = await fetch("http://localhost:4005/api/auth/login", {
+        const res = await fetch("http://localhost:4015/api/auth/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, pass: password }),
@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (res.ok) {
           alert(`Welcome back, ${data.username}!`);
+          // window.location.href = ""; // redirect to login page
         } else {
           alert(data.error || "Login failed.");
         }
