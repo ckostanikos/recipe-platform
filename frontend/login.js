@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (res.ok) {
           alert(`Welcome back, ${data.username}!`);
-          // window.location.href = ""; // redirect to login page
+          window.location.href = "mainPage.html"; // redirect to main page
         } else {
           alert(data.error || "Login failed.");
         }
