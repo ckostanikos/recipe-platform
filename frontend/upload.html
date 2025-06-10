@@ -22,13 +22,20 @@
             required>
           </div>
 
-         <div class="mb-3">
-            <label for="ingredients" class="form-label">Ingredients</label>
-            <textarea class="form-control" 
-            id="ingredients" 
-            placeholder="Ingredients" 
-            required></textarea>
-          </div>
+        <div class="mb-3">
+  <label class="form-label">Ingredients</label>
+  <div id="ingredientsContainer">
+    <div class="row mb-2 ingredient-row">
+      <div class="col">
+        <input type="text" class="form-control" name="ing_name" placeholder="Ingredient Name" required>
+      </div>
+      <div class="col">
+        <input type="text" class="form-control" name="quantity" placeholder="Quantity (e.g.100 Grammars)" required>
+      </div>
+    </div>
+  </div>
+  <button type="button" class="btn btn-secondary btn-sm" id="addIngredient">Add Ingredient</button>
+</div>
 
           <div class="mb-3">
             <label for="instructions" class="form-label">Instructions</label>
