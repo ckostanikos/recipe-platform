@@ -40,11 +40,3 @@ input[type="username"] {
   border-radius: 6px;
   font-size: 1rem;
 }
-
-footer {
-  position: absolute;
-  bottom: 1rem;
-  text-align: center;
-  font-size: 0.85rem;
-  color: #888;
-}
