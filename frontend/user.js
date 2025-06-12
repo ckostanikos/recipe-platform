@@ -1,3 +1,21 @@
+const user = {
+  full_name: "Maria Patsianotaki",
+};
+
+const dropdown = document.getElementById("userDropdown");
+if (dropdown) {
+  dropdown.textContent = user.full_name;
+}
+
+const logout = document.getElementById("logoutBtn");
+if (logout) {
+  logout.addEventListener("click", function (e) {
+    e.preventDefault();
+    alert("Logging out...");
+    window.location.href = "login.html";
+  });
+}
+
 document.getElementById("profileForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
