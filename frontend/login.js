@@ -13,9 +13,10 @@ document.addEventListener("DOMContentLoaded", function () {
       }
       console.log(email, password);
       try {
-        const res = await fetch("http://localhost:4015/api/auth/login", {
+        const res = await fetch("http://localhost:4016/api/auth/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
+          credentials: "include", // For cookie session
           body: JSON.stringify({ email, pass: password }),
         });
 
