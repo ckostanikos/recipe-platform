@@ -1,4 +1,4 @@
-import pool from "./models/db.js";
+import pool from "./db.js";
 
 export async function getComments(user_id) {
   const [rows] = await pool.query("SELECT * FROM comments WHERE user_id = ?", [

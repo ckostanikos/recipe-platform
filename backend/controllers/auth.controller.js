@@ -74,6 +74,9 @@ export async function loginUser(req, res) {
         .json({ success: false, error: "Invalid password." });
     }
 
+    // Set session
+    req.session.userId = existingUser.id;
+
     //Login successful
     res.status(200).json({
       success: true,
@@ -87,5 +90,12 @@ export async function loginUser(req, res) {
     res
       .status(500)
       .json({ success: false, error: "Server error during login." });
+  }
+}
+export function checkSession(req, res) {
+  if (req.session && req.session.userId) {
+    return res.json({ loggedIn: true, userId: req.session.userId });
+  } else {
+    return res.json({ loggedIn: false });
   }
 }

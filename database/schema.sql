@@ -1,17 +1,7 @@
 CREATE DATABASE recipe_platform;
 USE recipe_platform;
 
-CREATE TABLE recipes (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  title VARCHAR(255) NOT NULL,
-  instructions TEXT NOT NULL,
-  user_id INT NOT NULL,
-  production_time INT NOT NULL,
-  like_count INT NOT NULL,
-  created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-
+-- Create the user table
 CREATE TABLE user (
   id INT PRIMARY KEY AUTO_INCREMENT,
   username VARCHAR(255) NOT NULL,
@@ -24,31 +14,36 @@ CREATE TABLE user (
   updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+-- Create the recipes table (without like_count)
+CREATE TABLE recipes (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  title VARCHAR(255) NOT NULL,
+  instructions TEXT NOT NULL,
+  user_id INT NOT NULL,
+  production_time INT NOT NULL,
+  created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  image MEDIUMBLOB,
+  CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
+);
+
+-- Create the ingredients table
 CREATE TABLE ingredients (
   id INT PRIMARY KEY AUTO_INCREMENT,
   ing_name VARCHAR(255) NOT NULL,
   quantity VARCHAR(50) NOT NULL,
   recipe_id INT NOT NULL,
-  created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+  created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_recipe_id FOREIGN KEY (recipe_id) REFERENCES recipes(id) ON DELETE CASCADE
 );
 
+-- Create the comments table
 CREATE TABLE comments (
   id INT PRIMARY KEY AUTO_INCREMENT,
   comment TEXT NOT NULL,
   recipe_id INT NOT NULL,
   user_id INT NOT NULL,
-  created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+  created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_comment_recipe_id FOREIGN KEY (recipe_id) REFERENCES recipes(id) ON DELETE CASCADE,
+  CONSTRAINT fk_comment_user_id FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
 );
-
-ALTER TABLE recipes
-ADD COLUMN image MEDIUMBLOB;
-
-
-INSERT INTO user (username, pass, firstname, lastname, email) VALUES 
-('ckostanikos', 'password1', 'Christos', 'Kostanikos', 'c.kostanikos@outlook.com');
-
-INSERT INTO user (username, pass, firstname, lastname, email) VALUES 
-('mpatsianotaki', 'password2', 'Maria', 'Patsianotaki', 'm.patsianotaki@outlook.com');
-
-INSERT INTO user (username, pass, firstname, lastname, email) VALUES 
-('littlechef', 'password2', 'Maria', 'Patsianotaki', 'littlechef@outlook.com');

@@ -1,37 +1,51 @@
+// Core imports
 import express from "express";
+import cors from "cors";
+import session from "express-session";
+import path from "path";
+
 import userRoutes from "./routes/user.route.js";
 import authRoutes from "./routes/auth.route.js";
-import path from "path";
-import cors from "cors";
+import recipeRoutes from "./routes/recipe.route.js";
 
 const app = express();
-app.use(cors());
-app.use(express.json()); // Middleware to parse JSON request bodies
+
+app.use(
+  cors({
+    origin: ["http://localhost:5500"],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  })
+);
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use(
+  session({
+    secret: "best-ever-web-app",
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false, httpOnly: true, maxAge: 24 * 60 * 60 * 1000 },
+  })
+);
+
+// 4️⃣ ROUTES
+app.use("/api", authRoutes);
+app.use("/api", recipeRoutes);
 app.use("/api", userRoutes);
-app.use("/api", authRoutes); // for /api/login, /api/register, /api/logout
 
-export default app;
-
-app.get("/api/users", async (req, res) => {
-  const users = await getUsers();
-  res.status(201).send(users);
+app.get("/", (req, res) => {
+  res.send("✅ Little Chefs backend is running.");
 });
 
-app.get("/api/users/:id", async (req, res) => {
-  const id = req.params.id;
-  const user = await getUser(id);
-  res.status(201).send(user);
-});
-
+// 6️⃣ ERROR HANDLER (last)
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send("Something broke!");
 });
 
-app.listen(4015, () => {
-  console.log("Server is running on port 4015");
-});
-
-app.get("/", async (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/login.html"));
+// 7️⃣ START SERVER
+app.listen(4016, () => {
+  console.log("Server is running on port 4016");
 });

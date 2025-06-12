@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Little Chefs Recipes</title>
+    <script src="sessionCheck.js"></script>
     <script src="mainPage.js"></script>
     <link rel="stylesheet" href="mainPageStyle.css" />
     <link
@@ -14,14 +15,42 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
     />
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
   </head>
   <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light px-4">
-      <a class="navbar-brand" href="#">Little Chefs Recipes</a>
-      <div class="ms-auto">
-        <span class="me-3">Trial</span>
-        <button class="btn btn-dark">Terms and Conditions</button>
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm mb-4">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="#">Little Chefs</a>
+        <div class="dropdown ms-auto">
+          <button
+            class="btn btn-outline-secondary dropdown-toggle"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            id="userDropdown"
+          >
+            👤
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li>
+              <a class="dropdown-item" href="userprofile.html">My Profile</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="mainpage.html">Main Page</a>
+            </li>
+            <li><a class="dropdown-item" href="user.html">Settings</a></li>
+            <li>
+              <a class="dropdown-item" href="upload.html">Upload A Recipe</a>
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li>
+              <a class="dropdown-item text-danger" href="#" id="logoutBtn"
+                >Log Out</a
+              >
+            </li>
+          </ul>
+        </div>
       </div>
     </nav>
 
@@ -50,6 +79,10 @@
     <div class="container" id="recipeContainer">
       <!-- Recipe cards will be injected here -->
     </div>
-    <footer>&copy; 2025 Little Chefs</footer>
+    <footer class="bg-white text-center text-muted py-4 mt-5 shadow-sm">
+      <div class="container">
+        <small>&copy; 2025 Little Chefs.</small>
+      </div>
+    </footer>
   </body>
 </html>

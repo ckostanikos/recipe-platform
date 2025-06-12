@@ -1,4 +1,4 @@
-import pool from "../models/db.js";
+import pool from "./db.js";
 import { getUser } from "./user.model.js";
 
 export async function createUser({
