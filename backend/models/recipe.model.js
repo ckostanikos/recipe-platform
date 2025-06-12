@@ -1,7 +1,22 @@
-import pool from "./models/db.js";
-
+import pool from "./db.js";
 export async function getRecipes() {
-  const [rows] = await pool.query("SELECT * FROM recipes");
+  const [rows] = await pool.query(`
+    SELECT r.*, u.username AS chef,
+      (SELECT COUNT(*) FROM ingredients i WHERE i.recipe_id = r.id) AS ingredientCount
+    FROM recipes r
+    JOIN user u ON r.user_id = u.id
+    ORDER BY r.created DESC
+  `);
+
+  // Convertion of image buffer to base 64
+  for (const row of rows) {
+    if (row.image) {
+      row.image = `data:image/jpeg;base64,${row.image.toString("base64")}`;
+    } else {
+      row.image = "images/default.jpg"; // default image if recipe doesn't have one
+    }
+  }
+
   return rows;
 }
 
@@ -10,45 +25,56 @@ export async function getRecipe(id) {
   return rows[0];
 }
 
-export async function createRecipe(
+export async function createRecipeInDb({
   title,
-  description,
-  ingredients,
   instructions,
-  image_url
-) {
+  production_time,
+  user_id,
+  image,
+}) {
   const [result] = await pool.query(
-    "INSERT INTO recipes (title, description, ingredients, instructions, image_url) VALUES (?, ?, ?, ?, ?)",
-    [title, description, ingredients, instructions, image_url]
+    `INSERT INTO recipes (title, instructions, production_time, user_id, image)
+     VALUES (?, ?, ?, ?, ?)`,
+    [title, instructions, production_time, user_id, image]
   );
-  const id = result.insertId; // Get the ID of the newly created recipe
-  return getRecipe(id); // Return the newly created recipe
+  return result.insertId;
+}
+
+export async function addIngredientsToRecipe(recipeId, ingredients) {
+  for (const ing of ingredients) {
+    await pool.query(
+      `INSERT INTO ingredients (ing_name, quantity, recipe_id)
+       VALUES (?, ?, ?)`,
+      [ing.ing_name, ing.quantity, recipeId]
+    );
+  }
 }
 
 export async function updateRecipe(
   id,
-  title,
-  description,
-  ingredients,
-  instructions,
-  image_url
+  { title, instructions, production_time, image }
 ) {
   await pool.query(
-    "UPDATE recipes SET title = ?, description = ?, ingredients = ?, instructions = ?, image_url = ? WHERE id = ?",
-    [title, description, ingredients, instructions, image_url, id]
+    `UPDATE recipes
+     SET title = ?, instructions = ?, production_time = ?, image = ?
+     WHERE id = ?`,
+    [title, instructions, production_time, image, id]
   );
-  return getRecipe(id); // Return the updated recipe
+  return getRecipe(id);
 }
+
 export async function deleteRecipe(id) {
   await pool.query("DELETE FROM recipes WHERE id = ?", [id]);
-  return { message: "Recipe deleted successfully" }; // Return a success message
+  return { message: "Recipe deleted successfully" };
 }
+
 export async function getRecipesByUser(userId) {
   const [rows] = await pool.query("SELECT * FROM recipes WHERE user_id = ?", [
     userId,
   ]);
   return rows;
 }
+
 export async function getRecipeByName(name) {
   const [rows] = await pool.query("SELECT * FROM recipes WHERE title LIKE ?", [
     `%${name}%`,

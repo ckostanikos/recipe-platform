@@ -36,12 +36,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document
     .getElementById("recipeForm")
-    .addEventListener("submit", function (e) {
+    .addEventListener("submit", async function (e) {
       e.preventDefault();
 
       const title = document.getElementById("title").value.trim();
       const instructions = document.getElementById("instructions").value.trim();
       const time = document.getElementById("time").value.trim();
+      const photo = document.getElementById("photo").files[0];
       const ingredientNames = document.getElementsByName("ing_name");
       const ingredientQtys = document.getElementsByName("quantity");
 
@@ -56,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
           return;
         }
 
-        ingredients.push({ name, qty });
+        ingredients.push({ ing_name: name, quantity: qty });
       }
 
       if (!title || !instructions || !time) {
@@ -64,12 +65,30 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      alert("Recipe submitted!");
-      console.log({
-        title,
-        ingredients,
-        instructions,
-        time,
-      });
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("instructions", instructions);
+      formData.append("production_time", time);
+      formData.append("image", photo);
+      formData.append("ingredients", JSON.stringify(ingredients));
+
+      try {
+        const response = await fetch("http://localhost:4016/api/recipes", {
+          method: "POST",
+          credentials: "include", // needed for session cookie
+          body: formData,
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+          alert("Recipe submitted successfully!");
+          window.location.href = "mainPage.html";
+        } else {
+          alert(data.error || "Failed to submit recipe.");
+        }
+      } catch (err) {
+        console.error("Error submitting recipe:", err);
+        alert("An error occurred while submitting your recipe.");
+      }
     });
 });
