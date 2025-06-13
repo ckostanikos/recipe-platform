@@ -1,21 +1,22 @@
 import pool from "./db.js";
 
-export async function getComments(user_id) {
-  const [rows] = await pool.query("SELECT * FROM comments WHERE user_id = ?", [
-    user_id,
-  ]);
-  return rows[0];
-}
-
-export async function getComments(recipe_id) {
+export async function getCommentsByRecipe(recipeId) {
   const [rows] = await pool.query(
-    "SELECT * FROM comments WHERE recipe_id = ?",
-    [recipe_id]
+    `SELECT c.comment, c.created, u.username
+     FROM comments c
+     JOIN user u ON c.user_id = u.id
+     WHERE c.recipe_id = ?
+     ORDER BY c.created ASC`,
+    [recipeId]
   );
-  return rows[0];
+  return rows;
 }
 
-export async function deleteComment(id) {
-  await pool.query("DELETE * FROM comments WHERE id = ?", [id]);
-  return { message: "Comment deleted successfully" };
+export async function addCommentToRecipe(recipeId, userId, commentText) {
+  const [result] = await pool.query(
+    `INSERT INTO comments (comment, recipe_id, user_id)
+     VALUES (?, ?, ?)`,
+    [commentText, recipeId, userId]
+  );
+  return result.insertId;
 }

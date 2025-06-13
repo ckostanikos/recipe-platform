@@ -57,8 +57,12 @@ input[type="username"] {
 
 footer {
   position: absolute;
-  bottom: 1rem;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
   text-align: center;
-  font-size: 0.85rem;
-  color: #888;
+  padding: 1rem;
+  font-size: 0.9rem;
+  color: #777;
 }

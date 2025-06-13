@@ -2,7 +2,7 @@
 import express from "express";
 import cors from "cors";
 import session from "express-session";
-import path from "path";
+import commentRoutes from "./routes/comment.route.js";
 
 import userRoutes from "./routes/user.route.js";
 import authRoutes from "./routes/auth.route.js";
@@ -34,6 +34,7 @@ app.use(
 app.use("/api", authRoutes);
 app.use("/api", recipeRoutes);
 app.use("/api", userRoutes);
+app.use("/api", commentRoutes);
 
 app.get("/", (req, res) => {
   res.send("✅ Little Chefs backend is running.");
