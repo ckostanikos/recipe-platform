@@ -99,3 +99,13 @@ export function checkSession(req, res) {
     return res.json({ loggedIn: false });
   }
 }
+
+export async function logoutUser(req, res) {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).json({ success: false, error: "Logout failed." });
+    }
+    res.clearCookie("connect.sid"); // Clears the cookie from browser
+    res.json({ success: true, message: "Logged out." });
+  });
+}

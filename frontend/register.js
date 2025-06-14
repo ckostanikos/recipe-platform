@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
         fileInput.files.length > 0 ? fileInput.files[0].name : "default.jpg";
 
       try {
-        const res = await fetch("http://localhost:4015/api/auth/register", {
+        const res = await fetch("http://localhost:4016/api/auth/register", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
