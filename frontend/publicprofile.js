@@ -8,9 +8,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  // Fetch user public profile
   const userRes = await fetch(
-    `http://localhost:4016/api/public-profile?id=${encodeURIComponent(userId)}`
+    `http://localhost:4016/api/users/${encodeURIComponent(userId)}`
   );
   const userData = await userRes.json();
 
@@ -31,6 +30,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Recipes
   const recipes = userData.recipes || [];
+
   document.getElementById("recipeCount").textContent = recipes.length;
 
   const container = document.getElementById("recipesList");
@@ -39,22 +39,28 @@ document.addEventListener("DOMContentLoaded", async () => {
       "<div class='alert alert-warning'>No recipes found.</div>";
     return;
   }
-
   container.innerHTML = recipes
     .map(
       (recipe) => `
-    <div class="recipe-block">
-      <a href="recipe.html?id=${recipe.id}">
-        <h3>${recipe.title}</h3>
-        <img src="${
-          recipe.image && recipe.image.startsWith("data:")
-            ? recipe.image
-            : "images/default.jpg"
-        }" class="img-fluid rounded mb-3" alt="${recipe.title}">
-      </a>
+    <div class="recipe-block" style="cursor:pointer;" data-id="${recipe.id}">
+      <h3>${recipe.title}</h3>
+      <img src="${recipe.image}" class="img-fluid rounded mb-3" alt="${recipe.title}">
+      <span>
+        <b>By</b>&nbsp;<a href="publicprofile.html?id=${recipe.user_id}">${recipe.chef}</a>
+      </span>
       <p><strong>Time:</strong> ${recipe.production_time} minutes</p>
     </div>
   `
     )
     .join("");
+
+  // Attach the click event to all cards
+  document.querySelectorAll(".recipe-block").forEach((block) => {
+    block.addEventListener("click", function (e) {
+      // Don't redirect if clicking the username link
+      if (e.target.closest("a")) return;
+      const id = this.getAttribute("data-id");
+      window.location.href = `recipe.html?id=${id}`;
+    });
+  });
 });

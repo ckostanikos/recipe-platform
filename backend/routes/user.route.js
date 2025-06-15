@@ -18,7 +18,7 @@ router.get("/users", getAllUsers);
 
 // We used profile as a REST APIs convention
 router.get("/profile", isAuthenticated, getOwnProfile);
-router.get("/public-profile", getPublicProfile);
+router.get("/users/:id", getPublicProfile);
 router.put(
   "/profile",
   isAuthenticated,

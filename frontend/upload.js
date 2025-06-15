@@ -1,5 +1,6 @@
-const addBtn = document.getElementById("addIngredient");
-const container = document.getElementById("ingredientsContainer");
+document.addEventListener("DOMContentLoaded", () => {
+  const addBtn = document.getElementById("addIngredient");
+  const container = document.getElementById("ingredientsContainer");
 
 addBtn.addEventListener("click", function () {
   const row = document.createElement("div");

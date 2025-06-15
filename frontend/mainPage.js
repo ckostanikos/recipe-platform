@@ -64,9 +64,9 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="card-body">
               <h4 class="card-title mb-1">${recipe.title}</h4>
               <div class="mb-2 text-muted" style="font-size: 1rem;">
-                <p><b>By:</b><a href="publicprofile.html?id=${
+                <span><b>By</b>&nbsp;<a href="publicprofile.html?id=${
                   recipe.user_id
-                }">${recipe.chef || "Unknown Chef"}</a></p>
+                }">${recipe.chef || "Unknown Chef"}</a></span>
                 <span class="ms-3"><i class="bi bi-list-ul"></i> <b>Ingredients:</b> ${
                   recipe.ingredientCount || 0
                 }</span>

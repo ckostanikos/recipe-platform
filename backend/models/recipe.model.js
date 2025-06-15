@@ -86,13 +86,13 @@ export async function getRecipeByName(name) {
 export async function getRecipesByUserWithDetails(userId) {
   const [rows] = await pool.query(
     `
-    SELECT r.*, u.username AS chef,
+    SELECT r.*, r.user_id AS user_id, u.username AS chef,
       (SELECT COUNT(*) FROM ingredients i WHERE i.recipe_id = r.id) AS ingredientCount
     FROM recipes r
     JOIN user u ON r.user_id = u.id
     WHERE r.user_id = ?
     ORDER BY r.created DESC
-  `,
+    `,
     [userId]
   );
 

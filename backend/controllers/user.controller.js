@@ -1,4 +1,5 @@
 import { getUser, updateUser, deleteUser } from "../models/user.model.js";
+import { getRecipesByUserWithDetails } from "../models/recipe.model.js";
 import bcrypt from "bcrypt";
 
 // Fetch own profile
@@ -62,20 +63,18 @@ export async function getAllUsers(req, res) {
 }
 
 export async function getPublicProfile(req, res) {
-  const id = req.query.id;
+  const id = req.params.id;
   if (!id) return res.json({ success: false, error: "User id required" });
 
   const user = await getUser(id);
   if (!user) return res.json({ success: false, error: "User not found" });
 
-  // Return public fields only (omit pass, email if you want)
   if (user.profile_pic)
     user.profile_pic = `data:image/jpeg;base64,${user.profile_pic.toString(
       "base64"
     )}`;
   else user.profile_pic = null;
 
-  // Get user's recipes (with image as base64)
   const recipes = await getRecipesByUserWithDetails(user.id);
 
   res.json({

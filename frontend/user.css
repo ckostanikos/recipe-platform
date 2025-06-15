@@ -111,6 +111,13 @@ main {
   background-color: #b02a37;
 }
 
+.profile-icon {
+  margin-bottom: 1rem;
+}
+.profile input,
+.form-check {
+  margin-bottom: 1rem;
+}
 footer {
   background-color: white;
   text-align: center;
