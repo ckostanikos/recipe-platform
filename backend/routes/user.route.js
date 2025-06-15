@@ -6,6 +6,7 @@ import {
   getAllUsers,
   updateProfile,
   deleteProfile,
+  getPublicProfile,
 } from "../controllers/user.controller.js";
 import { isAuthenticated } from "../middleware/auth.middleware.js";
 
@@ -17,6 +18,7 @@ router.get("/users", getAllUsers);
 
 // We used profile as a REST APIs convention
 router.get("/profile", isAuthenticated, getOwnProfile);
+router.get("/public-profile", getPublicProfile);
 router.put(
   "/profile",
   isAuthenticated,

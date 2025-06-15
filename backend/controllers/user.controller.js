@@ -60,3 +60,33 @@ export async function getAllUsers(req, res) {
     res.status(500).json({ error: "Internal server error" });
   }
 }
+
+export async function getPublicProfile(req, res) {
+  const id = req.query.id;
+  if (!id) return res.json({ success: false, error: "User id required" });
+
+  const user = await getUser(id);
+  if (!user) return res.json({ success: false, error: "User not found" });
+
+  // Return public fields only (omit pass, email if you want)
+  if (user.profile_pic)
+    user.profile_pic = `data:image/jpeg;base64,${user.profile_pic.toString(
+      "base64"
+    )}`;
+  else user.profile_pic = null;
+
+  // Get user's recipes (with image as base64)
+  const recipes = await getRecipesByUserWithDetails(user.id);
+
+  res.json({
+    success: true,
+    user: {
+      id: user.id,
+      username: user.username,
+      firstname: user.firstname,
+      lastname: user.lastname,
+      profile_pic: user.profile_pic,
+    },
+    recipes,
+  });
+}
