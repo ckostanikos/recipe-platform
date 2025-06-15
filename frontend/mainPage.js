@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let allRecipes = [];
 
-  
   // Fetch all recipes from the backend
   async function fetchRecipes() {
     try {
@@ -65,7 +64,9 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="card-body">
               <h4 class="card-title mb-1">${recipe.title}</h4>
               <div class="mb-2 text-muted" style="font-size: 1rem;">
-                <span><b>By</b> ${recipe.chef || "Unknown Chef"}</span>
+                <p><b>By:</b><a href="publicprofile.html?id=${
+                  recipe.user_id
+                }">${recipe.chef || "Unknown Chef"}</a></p>
                 <span class="ms-3"><i class="bi bi-list-ul"></i> <b>Ingredients:</b> ${
                   recipe.ingredientCount || 0
                 }</span>

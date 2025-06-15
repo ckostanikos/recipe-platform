@@ -31,7 +31,9 @@ document.addEventListener("DOMContentLoaded", function () {
               style="max-width: 400px;">
             <div class="card-body">
               <h2 class="card-title">${recipe.title}</h2>
-              <p><b>By:</b> ${chefName}</p>
+              <p><b>By:</b> <a href="publicprofile.html?id=${
+                recipe.user_id
+              }">${chefName}</a></p>
               <p><b>Time:</b> ${recipe.production_time} min</p>
               <h5>Ingredients</h5>
               <ul>
