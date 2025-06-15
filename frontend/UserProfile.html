@@ -43,16 +43,23 @@
       </div>
     </nav>
 
-    <div class="container py-5">
-      <div class="profile-header shadow-sm text-center mb-4 bg-white p-4 rounded">
-        <h2 id="userName">Maria Patsianotaki</h2>
-        <p class="text-muted">
-          Recipes Uploaded: <span id="recipeCount">0</span>
-        </p>
-      </div>
-
-      <div id="recipesList"></div>
-    </div>
+<div class="container py-5">
+  <div class="profile-header shadow-sm text-center mb-4 bg-white p-4 rounded">
+    <img
+      id="profilePic"
+      src="images/default-avatar.jpg"
+      alt="Profile"
+      class="rounded-circle mb-3"
+      style="width:120px;height:120px;object-fit:cover;border: 2px solid #eee;"
+    />
+    <h2 id="userName">Username</h2>
+    <div id="userFullName" class="mb-2"></div>
+    <p class="text-muted">
+      Recipes Uploaded: <span id="recipeCount">0</span>
+    </p>
+  </div>
+  <div id="recipesList"></div>
+</div>
     <footer class="bg-white text-center text-muted py-4 mt-5 shadow-sm">
   <div class="container">
     <small>&copy; 2025 Little Chefs.</small>
