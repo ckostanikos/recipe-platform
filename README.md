@@ -14,7 +14,7 @@ Little Chefs is a social recipe platform that allows users to:
 ## 💡 Features
 
 ### 👤 User Management
-- **Register** with full name, email, password, and profile picture (JPG/PNG, <1MB)
+- **Register** with full name, email, password, and profile picture (JPG, <1MB)
 - **Login/Logout** functionality with session handling
 - **Update or delete** profile securely
 
@@ -87,15 +87,18 @@ DB_HOST=localhost
 DB_USER=your_mysql_user
 DB_PASSWORD=your_mysql_password
 DB_NAME=recipe_platform
-SESSION_SECRET=your_session_secret
 ```
 
 ### 4. Set Up the Database
 
-Import the SQL file into MySQL or create the database and tables inside VSCode (using schema.sql and mysql -u root -p in terminal):
+Import the SQL file into MySQL or create the database and tables inside VSCode:
 
 ```sql
 SOURCE database/init.sql;
+```
+or in terminal
+```
+mysql -u root -p
 ```
 
 ### 5. Start the Backend Server
@@ -131,12 +134,12 @@ In VS Code, go to Settings (`Ctrl + ,`) → open `settings.json` and add:
 
 ## 💡 Future Enhancements
 
-- Add recipe likes & comments
+- Add recipe likes
 - Advanced search with filters (e.g. time, difficulty)
 - Pagination on recipe list
 - Admin dashboard
-- Email verification & password reset
-- Responsive mobile layout
+- Further enhancement in Terms & Conditions for legal compliance
+
 
 ## 🧑‍💻 Authors
 
