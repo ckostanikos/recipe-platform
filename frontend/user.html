@@ -9,10 +9,10 @@
   <script src="user.js"></script>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg bg-white shadow-sm mb-4 px-4">
-  <div class="container-fluid d-flex justify-content-between align-items-center">
-    <a class="navbar-brand fw-bold" href="#">Little Chefs</a>
-    <div class="dropdown">
+   <nav class="navbar navbar-expand-lg bg-white shadow-sm mb-4">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="mainPage.html">Little Chefs</a>
+        <div class="dropdown ms-auto">
 <button
   class="btn btn-outline-secondary dropdown-toggle"
   type="button"
@@ -22,16 +22,22 @@
 >
   👤
 </button>
-      <ul class="dropdown-menu dropdown-menu-end">
-        <li><a class="dropdown-item" href="userprofile.html">My Profile</a></li>
-        <li><a class="dropdown-item" href="user.html">Settings</a></li>
-        <li><a class="dropdown-item" href="upload.html">Upload A Recipe</a></li>
-        <li><hr class="dropdown-divider" /></li>
-        <li><a class="dropdown-item text-danger" href="#" id="logoutBtn">Log Out</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li>
+              <a class="dropdown-item" href="userprofile.html">My Recipes</a>
+            </li>
+            <li><a class="dropdown-item" href="user.html">Profile Management</a></li>
+            <li><a class="dropdown-item" href="upload.html">Upload A Recipe</a></li>
+            <li><hr class="dropdown-divider" /></li>
+            <li>
+              <a class="dropdown-item text-danger" href="#" id="logoutBtn"
+                >Log Out</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
   <div class="profile-wrapper">
     <div class="profile-header">
       <span class="settings-text">Profile Management</span>
