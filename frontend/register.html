@@ -7,8 +7,8 @@
   </head>
   <body>
     <div class="ccontainer py-5 custom-container">
-      <h1>Become a Chef!</h1>
-      <form id="registerForm" method="POST">
+      <h1>Become a Little Chef!</h1>
+      <form id="registerForm" method="POST" enctype="multipart/form-data">
         <input
           type="text"
           id="username"
@@ -46,21 +46,21 @@
           name="pass"
           required
         />
-
+        <img
+          id="preview"
+          src="images/default-avatar.jpg"
+          alt="Profile Preview"
+          class="mb-2 rounded-circle d-block mx-auto"
+          style="width: 100px; height: 100px; object-fit: cover;"
+        />
        <div class="mb-3">
-  <label for="profile_pic" 
-  class="form-label">Chef's Picture</label>
-  <input class="form-control" 
-  type="file" id="profile_pic" 
-  name="profile_pic" 
-  accept="image/*">
-</div>
+        <label for="profile_pic" class="form-label">Chef's Picture</label> <input class="form-control" type="file" id="profile_pic" name="profile_pic" accept="image/*"></div>
       <p> By clicking Register, you accept all the <br> <a href="tac.html"> Terms And Conditions</a>.</p>
         <button type="submit" class="btn btn-dark">Register</button>
       </form>
 
       <div class="register-link">
-        <p>Already a Chef? <a href="login.html">Sign In Here.</a></p>
+        <p>Already a Chef? <a href="login.html"><u>Sign In Here.</u></a></p>
       </div>
     </div>
     <footer class="bg-white text-center text-muted py-4 mt-5 shadow-sm">

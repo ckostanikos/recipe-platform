@@ -3,17 +3,18 @@ import {
   createRecipeInDb,
   addIngredientsToRecipe,
   getRecipes,
-  getRecipe,
+  getRecipesByUserWithDetails,
+  getRecipeWithIngredients,
 } from "../models/recipe.model.js";
 
-// Setup multer to handle file uploads in memory
+// multer handles file uploads in memory
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-// Export upload middleware for routes
+// Exports upload middleware for routes
 export const uploadRecipeImage = upload.single("image");
 
-// Create recipe controller
+// Creates recipe controller
 export async function createRecipe(req, res) {
   try {
     const { title, instructions, production_time } = req.body;
@@ -29,7 +30,7 @@ export async function createRecipe(req, res) {
         .json({ success: false, error: "All fields are required." });
     }
 
-    // Parse ingredients from JSON string
+    // Parses ingredients from JSON string
     let ingredients = [];
     if (req.body.ingredients) {
       try {
@@ -41,13 +42,13 @@ export async function createRecipe(req, res) {
       }
     }
 
-    // Get image buffer (optional)
+    // image buffer
     let imageBuffer = null;
     if (req.file) {
       imageBuffer = req.file.buffer;
     }
 
-    // Save the recipe in the DB
+    // Saves recipe in the DB
     const recipeId = await createRecipeInDb({
       title,
       instructions,
@@ -56,7 +57,7 @@ export async function createRecipe(req, res) {
       image: imageBuffer,
     });
 
-    // Save ingredients
+    // Saves ingredients
     if (ingredients.length > 0) {
       await addIngredientsToRecipe(recipeId, ingredients);
     }
@@ -72,7 +73,7 @@ export async function createRecipe(req, res) {
   }
 }
 
-// Get all recipes
+// Gets all recipes
 export async function getAllRecipes(req, res) {
   try {
     const recipes = await getRecipes();
@@ -83,11 +84,11 @@ export async function getAllRecipes(req, res) {
   }
 }
 
-// Get a single recipe by ID
+// Gets a single recipe by ID that included the ingredients
 export async function getSingleRecipe(req, res) {
   try {
     const { id } = req.params;
-    const recipe = await getRecipe(id);
+    const recipe = await getRecipeWithIngredients(id);
 
     if (!recipe) {
       return res
@@ -99,5 +100,22 @@ export async function getSingleRecipe(req, res) {
   } catch (err) {
     console.error("Error fetching recipe:", err);
     res.status(500).json({ success: false, error: "Failed to fetch recipe." });
+  }
+}
+
+// Gets recipes for logged-in user
+export async function getMyRecipes(req, res) {
+  const userId = req.session.userId;
+  if (!userId) {
+    return res.status(401).json({ success: false, error: "Unauthorized." });
+  }
+  try {
+    const recipes = await getRecipesByUserWithDetails(userId);
+    res.status(200).json({ success: true, recipes });
+  } catch (err) {
+    console.error("Error fetching user recipes:", err);
+    res
+      .status(500)
+      .json({ success: false, error: "Failed to fetch user recipes." });
   }
 }

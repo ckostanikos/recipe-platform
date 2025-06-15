@@ -3,10 +3,10 @@ import { getUserByEmail, getUserByUsername } from "../models/user.model.js";
 import bcrypt from "bcrypt";
 
 export async function registerUser(req, res) {
-  const { username, pass, firstname, lastname, email, profile_pic } = req.body;
-  console.log(req.body);
+  const { username, pass, firstname, lastname, email } = req.body;
+  const profile_pic = req.file ? req.file.buffer : null;
 
-  if (!username || !pass || !firstname || !lastname || !email || !profile_pic) {
+  if (!username || !pass || !firstname || !lastname || !email) {
     return res
       .status(400)
       .json({ success: false, error: "All fields are required." });
@@ -25,7 +25,7 @@ export async function registerUser(req, res) {
         .status(409)
         .json({ success: false, error: "Username already in use." });
     }
-    // Using bcrypt to hash and salt the provided user password
+
     const hashedPassword = await bcrypt.hash(pass, 10);
 
     const user = await createUser({
