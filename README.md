@@ -145,6 +145,3 @@ In VS Code, go to Settings (`Ctrl + ,`) → open `settings.json` and add:
 
 Built by **Christos Kostanikos** and **Maria Patsianotaki** for the CCS6215 Web Technologies course project.
 
-## 📜 License
-
-MIT License
