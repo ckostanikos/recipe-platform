@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <input type="text" class="form-control" name="ing_name" placeholder="Ingredient Name" required>
       </div>
       <div class="col">
-        <input type="text" class="form-control" name="quantity" placeholder="Quantity (e.g.100 Grammars)" required>
+        <input type="text" class="form-control" name="quantity" placeholder="Quantity (e.g.100g)" required>
       </div>
     `;
     container.appendChild(row);
