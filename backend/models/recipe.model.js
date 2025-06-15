@@ -81,3 +81,56 @@ export async function getRecipeByName(name) {
   ]);
   return rows;
 }
+
+// This is exactly for getting a users recipes
+export async function getRecipesByUserWithDetails(userId) {
+  const [rows] = await pool.query(
+    `
+    SELECT r.*, u.username AS chef,
+      (SELECT COUNT(*) FROM ingredients i WHERE i.recipe_id = r.id) AS ingredientCount
+    FROM recipes r
+    JOIN user u ON r.user_id = u.id
+    WHERE r.user_id = ?
+    ORDER BY r.created DESC
+  `,
+    [userId]
+  );
+
+  // Convert buffer image to base64
+  for (const row of rows) {
+    if (row.image) {
+      row.image = `data:image/jpeg;base64,${row.image.toString("base64")}`;
+    } else {
+      row.image = "images/default.jpg";
+    }
+  }
+
+  return rows;
+}
+
+export async function getRecipeWithIngredients(id) {
+  // Fetch the recipe (including chef username)
+  const [recipes] = await pool.query(
+    "SELECT r.*, u.username AS chef FROM recipes r JOIN user u ON r.user_id = u.id WHERE r.id = ?",
+    [id]
+  );
+  const recipe = recipes[0];
+  if (!recipe) return null;
+
+  // Fetch the ingredients
+  const [ingredients] = await pool.query(
+    "SELECT ing_name, quantity FROM ingredients WHERE recipe_id = ?",
+    [id]
+  );
+
+  // Convert image buffer to base64 if present
+  if (recipe.image) {
+    recipe.image = `data:image/jpeg;base64,${recipe.image.toString("base64")}`;
+  } else {
+    recipe.image = "images/default.jpg";
+  }
+
+  recipe.ingredients = ingredients; // Attach ingredients to the recipe
+
+  return recipe;
+}

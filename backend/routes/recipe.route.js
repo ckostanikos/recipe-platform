@@ -5,6 +5,7 @@ import {
   createRecipe,
   getAllRecipes,
   getSingleRecipe,
+  getMyRecipes,
 } from "../controllers/recipe.controller.js";
 
 const router = express.Router();
@@ -17,5 +18,7 @@ router.get("/recipes/:id", getSingleRecipe);
 
 // Protected route: create a new recipe
 router.post("/recipes", isAuthenticated, uploadRecipeImage, createRecipe);
+
+router.get("/my-recipes", isAuthenticated, getMyRecipes);
 
 export default router;

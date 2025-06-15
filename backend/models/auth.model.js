@@ -13,6 +13,6 @@ export async function createUser({
     "INSERT INTO user (username, pass, firstname, lastname, email, profile_pic) VALUES (?, ?, ?, ?, ?, ?)",
     [username, pass, firstname, lastname, email, profile_pic]
   );
-  const id = result.insertId; // Get the ID of the newly created user
-  return getUser(id); // Return the newly created user
+  const id = result.insertId;
+  return getUser(id);
 }
